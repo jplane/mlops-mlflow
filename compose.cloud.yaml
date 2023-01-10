@@ -1,0 +1,36 @@
+
+services:
+
+  mlflow:
+    container_name: mlflow-server
+    image: mlflow_azure_server:latest
+    build:
+      context: .
+      dockerfile: mlflow_server.dockerfile
+    environment:
+      - AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING}
+      - MLFLOW_BACKEND_STORE_URI=${MLFLOW_BACKEND_STORE_URI}
+      - MLFLOW_DEFAULT_ARTIFACT_ROOT=${MLFLOW_DEFAULT_ARTIFACT_ROOT}
+      - MLFLOW_PORT=${MLFLOW_PORT}
+    ports:
+      - ${MLFLOW_PORT}:${MLFLOW_PORT}
+
+  jupyter:
+    container_name: jupyter-server
+    image: jupyter_azure_server:latest
+    build:
+      context: .
+      dockerfile: jupyter_server.dockerfile
+    environment:
+      - AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING}
+      - MLFLOW_URI=${MLFLOW_URI}:${MLFLOW_PORT}
+      - JUPYTER_TOKEN=dtic
+    depends_on:
+      - mlflow
+    ports:
+      - ${JUPYTER_PORT}:8888
+    volumes:
+      - jupyter-data:/home/jovyan/work
+
+volumes:
+  jupyter-data:

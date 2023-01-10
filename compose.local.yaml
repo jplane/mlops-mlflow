@@ -1,0 +1,64 @@
+
+services:
+
+  mlflow:
+    depends_on:
+      azurite:
+        condition: service_healthy
+      mssql:
+        condition: service_started
+
+  jupyter:
+    depends_on:
+      azurite:
+        condition: service_healthy
+      mlflow:
+        condition: service_started
+
+  azurite:
+    image: mcr.microsoft.com/azure-storage/azurite
+    container_name: azurite
+    hostname: azurite
+    restart: always
+    ports:
+      - 10000:10000
+    volumes:
+      - azurite-data:/data
+    # required, see https://github.com/Azure/Azurite/issues/1666
+    healthcheck:
+      test: nc 127.0.0.1 10000 -z
+      interval: 1s
+      retries: 30
+
+  azurite_init:
+    image: mcr.microsoft.com/azure-cli:latest
+    container_name: azurite_init
+    command:
+      - /bin/sh
+      - -c
+      - |
+        az storage container create --name artifacts
+    depends_on:
+      azurite:
+        condition: service_healthy
+    environment:
+      AZURE_STORAGE_CONNECTION_STRING: DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://azurite:10000/devstoreaccount1;
+
+  mssql:
+    container_name: sqlserver
+    image: mlflow_sqlserver:latest
+    build:
+      context: .
+      dockerfile: mssql.dockerfile
+    user: root
+    environment:
+      - MSSQL_SA_PASSWORD=Pass_word
+      - ACCEPT_EULA=Y
+    ports:
+      - 1433:1433
+    volumes:
+      - mssql-data:/var/opt/mssql/data
+
+volumes:
+  azurite-data:
+  mssql-data:
