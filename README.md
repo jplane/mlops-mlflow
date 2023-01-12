@@ -55,7 +55,7 @@ This repo maps out an MLOps infrastructure utilizing the following technologies:
 - run [start.cloud.sh](./start.cloud.sh)
 
     ```bash
-    > ./start.local.sh
+    > ./start.cloud.sh
     ```
 
 - wait for all containers to build and start (may take a few minutes)
