@@ -23,7 +23,7 @@ services:
       dockerfile: jupyter_server.dockerfile
     environment:
       - AZURE_STORAGE_CONNECTION_STRING=${AZURE_STORAGE_CONNECTION_STRING}
-      - MLFLOW_URI=${MLFLOW_URI}:${MLFLOW_PORT}
+      - MLFLOW_TRACKING_URI=http://mlflow-server:${MLFLOW_PORT}
       - JUPYTER_TOKEN=dtic
     depends_on:
       - mlflow

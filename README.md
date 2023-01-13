@@ -75,7 +75,7 @@ This repo maps out an MLOps infrastructure utilizing the following technologies:
 ## Common Instructions
 
 - open JupyterLab by navigating to http://localhost:8888/?token=dtic
-- open the [mlflow_test.ipynb](./mlflow_test.ipynb) notebook and run all cells, in order
+- open the [simple_mlflow_test.ipynb](./simple_mlflow_test.ipynb) notebook and run all cells, in order
 - open another browser tab and navigate to the MLFlow UI at http://localhost:5000
 - view the details of run1 and run2 under experiment1
 - go back to the notebook, try adding new experiments and runs... explore other APIs in the [MLFlow Python library](https://mlflow.org/docs/latest/python_api/index.html)

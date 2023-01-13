@@ -5,6 +5,5 @@ export MLFLOW_BACKEND_STORE_URI="mssql+pyodbc://sa:Pass_word@sqlserver:1433/mlfl
 export MLFLOW_DEFAULT_ARTIFACT_ROOT="wasbs://artifacts@azurite/"
 export MLFLOW_PORT=5000
 export JUPYTER_PORT=8888
-export MLFLOW_URI=mlflow-server
 
 docker compose -f compose.cloud.yaml -f compose.local.yaml up
