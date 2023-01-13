@@ -75,7 +75,7 @@ This repo maps out an MLOps infrastructure utilizing the following technologies:
 ## Common Instructions
 
 - open JupyterLab by navigating to http://localhost:8888/?token=dtic
-- open the [simple_mlflow_test.ipynb](./simple_mlflow_test.ipynb) notebook and run all cells, in order
+- open the [train_and_serve_model.ipynb](./train_and_serve_model.ipynb) notebook and run all cells, in order... this will train and deploy a sample ML model to a local REST endpoint
 - open another browser tab and navigate to the MLFlow UI at http://localhost:5000
-- view the details of run1 and run2 under experiment1
-- go back to the notebook, try adding new experiments and runs... explore other APIs in the [MLFlow Python library](https://mlflow.org/docs/latest/python_api/index.html)
+- view the details of run1 under experiment1
+- go back to Jupyter and open [invoke_model_endpoint.ipynb](./invoke_model_endpoint.ipynb) to invoke the model REST endpoint
