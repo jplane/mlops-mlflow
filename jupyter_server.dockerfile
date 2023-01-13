@@ -7,5 +7,4 @@ RUN pip install jupyterlab-git azure-storage-blob azure-identity mlflow-2.1.2.de
 
 WORKDIR /home/jovyan/work
 
-COPY simple_mlflow_test.ipynb .
 COPY mlflow-example/* .
